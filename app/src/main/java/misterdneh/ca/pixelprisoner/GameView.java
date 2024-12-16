@@ -2,7 +2,9 @@ package misterdneh.ca.pixelprisoner;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,18 +23,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public int pointerID = 0;
     public boolean checkbuttonpressed = false;
     public String checkbutton = "none";
+    public Paint square;
+    public int posX,posY = 0;
 
     public GameView(Context context){
         super(context);
         getHolder().addCallback(this);
         gameLoop = new GameLoop(getHolder(),this);
         dpad = new Dpad(this);
+        square = new Paint();
+        square.setColor(Color.YELLOW);
     }
     public void update(){
         handleButtonsPressed();
     }
     public void draw(Canvas canvas){
         super.draw(canvas);
+        canvas.drawRect(posX,posY,100 + posX,100 + posY,square);
         dpad.draw(canvas);
     }
     @Override
@@ -106,18 +113,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (buttonlist.contains("LEFT BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "left";
+            posX -= 8;
         }else
         if (buttonlist.contains("RIGHT BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "right";
+            posX += 8;
         }else
         if (buttonlist.contains("UP BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "up";
+            posY -= 8;
         }else
         if (buttonlist.contains("DOWN BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "down";
+            posY += 8;
         }else {
             checkbuttonpressed = false;
             checkbutton = "none";
