@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import misterdneh.ca.pixelprisoner.entities.Player;
 import misterdneh.ca.pixelprisoner.ui.Dpad;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
@@ -21,25 +22,26 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public ArrayList<String> buttonlist = new ArrayList<>();
     public ArrayList<String> buttonpointerlist = new ArrayList<>();
     public int pointerID = 0;
+    public int defaultTilesize = 0;
     public boolean checkbuttonpressed = false;
     public String checkbutton = "none";
-    public Paint square;
-    public int posX,posY = 0;
+    public Player player;
 
     public GameView(Context context){
         super(context);
         getHolder().addCallback(this);
         gameLoop = new GameLoop(getHolder(),this);
         dpad = new Dpad(this);
-        square = new Paint();
-        square.setColor(Color.YELLOW);
+        defaultTilesize = 160;//multiplied by 10
+        player = new Player(this);
     }
     public void update(){
         handleButtonsPressed();
+        player.update();
     }
     public void draw(Canvas canvas){
         super.draw(canvas);
-        canvas.drawRect(posX,posY,100 + posX,100 + posY,square);
+        player.draw(canvas);
         dpad.draw(canvas);
     }
     @Override
@@ -113,26 +115,32 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (buttonlist.contains("LEFT BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "left";
-            posX -= 8;
+            player.entityLeft = true;
         }else
         if (buttonlist.contains("RIGHT BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "right";
-            posX += 8;
+            player.entityRight = true;
         }else
         if (buttonlist.contains("UP BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "up";
-            posY -= 8;
+            player.entityUp = true;
         }else
         if (buttonlist.contains("DOWN BUTTON")){
             checkbuttonpressed = true;
             checkbutton = "down";
-            posY += 8;
+            player.entityDown = true;
         }else {
             checkbuttonpressed = false;
             checkbutton = "none";
+            player.entityRight = false;
+            player.entityLeft = false;
+            player.entityUp = false;
+            player.entityDown = false;
         }
+        checkbutton = "none";
+
         if (buttonlist.contains("A BUTTON")){
 
         }else {
