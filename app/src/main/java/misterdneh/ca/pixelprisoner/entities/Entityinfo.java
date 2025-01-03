@@ -16,6 +16,10 @@ public class Entityinfo {
     public int posX = 0;
     public int posY = 0;
     public int walkSpeed = 0;
+    public int entityAnimCounter = 0;
+    public int entityAnimMaxCount = 0;
+    public int entityAnimNum = 1;
+
 
     public boolean entityRight = false;
     public boolean entityLeft = false;
