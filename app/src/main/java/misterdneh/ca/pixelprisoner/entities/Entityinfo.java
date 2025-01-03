@@ -35,7 +35,7 @@ public class Entityinfo {
 
     public void draw(Canvas canvas){
         if (defaultimg != null) {
-            canvas.drawBitmap(defaultimg, posX, posY, null);
+            canvas.drawBitmap(defaultimg, screenX, screenY, null);
         }
     }
     public void setupSpritesheet(int drawable, Bitmap[] bitmaps, int tileSize) {

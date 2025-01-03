@@ -26,6 +26,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public boolean checkbuttonpressed = false;
     public String checkbutton = "none";
     public Player player;
+    public int worldSizeX = 0;
+    public int worldSizeY = 0;
+    public TileManager tileManager;
 
     public GameView(Context context){
         super(context);
@@ -34,6 +37,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         dpad = new Dpad(this);
         defaultTilesize = 160;//multiplied by 10
         player = new Player(this);
+        worldSizeX = 50;
+        worldSizeY = 50;
+        tileManager = new TileManager(this);
+        tileManager.loadMapLayer1("testmap");
     }
     public void update(){
         handleButtonsPressed();
@@ -41,6 +48,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
     public void draw(Canvas canvas){
         super.draw(canvas);
+        tileManager.draw(canvas);
         player.draw(canvas);
         dpad.draw(canvas);
     }

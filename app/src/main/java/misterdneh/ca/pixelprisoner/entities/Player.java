@@ -16,6 +16,10 @@ public class Player extends Entityinfo{
         setupSpritesheet(R.drawable.playwalkingspritesheet,entityWalking,16);
         defaultimg = entityWalking[0];
         entityAnimMaxCount = 12;
+        screenX = gameView.getDisplayWidth()/2 - entityWidth/2;
+        screenY = gameView.getDisplayHeight()/2 - entityHeight/2;
+        posX = 5 * gameView.defaultTilesize;
+        posY = 5 * gameView.defaultTilesize;
     }
     public void update(){
         updatePosition();
@@ -68,7 +72,6 @@ public class Player extends Entityinfo{
                 }
                 break;
         }
-
     }
 
     public void updateEntityWalking (){
